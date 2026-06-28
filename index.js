@@ -1,18 +1,50 @@
 const express = require("express");
-
 const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
 
+// API endpoint (the demo's test grades this)
+app.get("/api/hello", (req, res) => {
+  res.json({ ok: true, message: "Hello from your API 🎉" });
+});
+
+// Frontend — served by your own app, shown live in the preview
 app.get("/", (req, res) => {
-  res.json({ ok: true, message: "Your backend is running 🎉" });
+  res.type("html").send(`<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello API</title>
+    <style>
+      *{box-sizing:border-box} body{margin:0;min-height:100vh;display:grid;place-items:center;
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      background:radial-gradient(1200px 600px at 50% -10%,#e8fbff,#f5f7fa);color:#0a1f2e}
+      .card{width:min(520px,92vw);background:#fff;border-radius:18px;padding:32px;text-align:center;
+      box-shadow:0 24px 60px rgba(10,107,133,.16),0 0 0 1px rgba(19,174,206,.08)}
+      .badge{display:inline-block;padding:4px 12px;border-radius:999px;background:rgba(19,174,206,.12);
+      color:#0f8ba8;font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+      h1{margin:14px 0 6px;font-size:26px;letter-spacing:-.02em} p{margin:0 0 18px;color:#475569}
+      pre{text-align:left;background:#0e1f33;color:#cdddea;border-radius:12px;padding:16px;overflow:auto;font-size:13px;margin:0}
+      .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#13aece;margin-right:6px}
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <span class="badge">Live preview</span>
+      <h1>🎉 Your app is running</h1>
+      <p><span class="dot"></span><span id="status">Calling your API…</span></p>
+      <pre id="out">…</pre>
+    </main>
+    <script>
+      fetch("/api/hello").then(r=>r.json()).then(d=>{
+        document.getElementById("status").textContent="API responded ✓";
+        document.getElementById("out").textContent=JSON.stringify(d,null,2);
+      }).catch(()=>{document.getElementById("status").textContent="API not reachable";});
+    </script>
+  </body>
+</html>`);
 });
 
-app.get("/health", (req, res) => {
-  res.json({ status: "healthy" });
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+app.listen(port, () => console.log("Server listening on port " + port));
