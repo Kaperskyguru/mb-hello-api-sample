@@ -10,7 +10,7 @@ app.get("/api/hello", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({ ok: true, message: "AaaPI is running. Frontend at /__app/" });
+  res.json({ ok: true, message: "API is running. Frontend at /__app/" });
 });
 
 app.listen(port, () => console.log("Server listening on port " + port));
