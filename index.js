@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
   <body>
     <main class="card">
       <span class="badge">Live preview</span>
-      <h1>🎉 Your app is running</h1>
+      <h1>🎉 Your app is running as</h1>
       <p><span class="dot"></span><span id="status">Calling your API…</span></p>
       <pre id="out">…</pre>
     </main>
