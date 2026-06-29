@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
     </main>
     <script>
       fetch("/api/hello").then(r=>r.json()).then(d=>{
-        document.getElementById("status").textContent="API responded ✓";
+        document.getElementById("status").textContent="API responded as ✓";
         document.getElementById("out").textContent=JSON.stringify(d,null,2);
       }).catch(()=>{document.getElementById("status").textContent="API not reachable";});
     </script>
